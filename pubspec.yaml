@@ -20,3 +20,11 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - images/profil.png
+    - images/meteo.png
+    - images/gallerie.png
+    - images/pays.png
+    - images/contact.png
+    - images/parametres.png

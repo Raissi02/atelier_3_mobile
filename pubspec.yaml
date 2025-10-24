@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   shared_preferences: ^2.2.2
+  http: ^1.1.0
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:
@@ -28,3 +30,9 @@ flutter:
     - images/pays.png
     - images/contact.png
     - images/parametres.png
+    - images/clear.png
+    - images/clouds.png
+    - images/rain.png
+    - images/snow.png
+    - images/drizzle.png
+    - images/thunderstorm.png

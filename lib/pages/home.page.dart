@@ -5,6 +5,12 @@ import 'package:voyage/menu/drawer.widget.dart';
 class HomePage extends StatelessWidget {
   late SharedPreferences prefs;
 
+  Future<void> _Deconnexion(BuildContext context) async {
+    prefs = await SharedPreferences.getInstance();
+    prefs.setBool("connecte", false);
+    Navigator.pushNamedAndRemoveUntil(context, '/authentification', (route) => false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,10 +73,10 @@ class HomePage extends StatelessWidget {
               child: Ink.image(
                 height: 180,
                 width: 180,
-                image: AssetImage('images/meteo.png'), // You can change this image
+                image: AssetImage('images/deconnexion.png'),
               ),
               onTap: () {
-                Navigator.pushNamed(context, '/meteo');
+                _Deconnexion(context);
               },
             ),
           ],

@@ -9,6 +9,7 @@ import 'package:voyage/pages/pays.page.dart';
 import 'package:voyage/pages/contact.page.dart';
 import 'package:voyage/pages/parametres.page.dart';
 import 'package:voyage/pages/meteo-details.page.dart';
+import 'package:voyage/pages/gallerie-details.page.dart';
 
 void main() => runApp(MyApp());
 

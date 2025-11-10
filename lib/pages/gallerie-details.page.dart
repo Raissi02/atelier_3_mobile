@@ -49,51 +49,104 @@ class _GallerieDetailsPageState extends State<GallerieDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: totalPages == 0
-              ? Text('Pas de résultats')
-              : Text("${widget.keyword}, Page ${currentPage} / ${totalPages}")
+        title: totalPages == 0
+            ? Text('Pas de résultats')
+            : Text("${widget.keyword}, Page ${currentPage} / ${totalPages}"),
+        flexibleSpace: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
+              colors: [
+                Colors.purple[800]!,
+                Colors.purple[600]!,
+                Colors.purple[400]!,
+              ],
+            ),
+          ),
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: galleryData == null
-          ? Center(child: CircularProgressIndicator())
-          : ListView.builder(
-        itemCount: hits.length,
-        controller: scrollController,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              Container(
-                width: double.infinity,
-                padding: EdgeInsets.all(10),
-                child: Card(
-                  child: Container(
-                    padding: EdgeInsets.all(15),
-                    child: Center(
-                      child: Text(
-                        hits[index]['tags'],
-                        style: TextStyle(
-                          fontSize: 22,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.purple[50]!,
+              Colors.white,
+              Colors.purple[50]!,
+            ],
+          ),
+        ),
+        child: galleryData == null
+            ? Center(child: CircularProgressIndicator(color: Colors.purple[700]))
+            : ListView.builder(
+          itemCount: hits.length,
+          controller: scrollController,
+          itemBuilder: (context, index) {
+            return Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.all(10),
+                  child: Card(
+                    child: Container(
+                      padding: EdgeInsets.all(15),
+                      child: Center(
+                        child: Text(
+                          hits[index]['tags'],
+                          style: TextStyle(
+                            fontSize: 22,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.center,
                         ),
-                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                    color: Colors.purple[600], // CHANGED: Blue to purple
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                  child: Card(
+                    elevation: 4,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        hits[index]['webformatURL'],
+                        fit: BoxFit.cover,
+                        loadingBuilder: (context, child, loadingProgress) {
+                          if (loadingProgress == null) return child;
+                          return Container(
+                            height: 200,
+                            child: Center(
+                              child: CircularProgressIndicator(
+                                value: loadingProgress.expectedTotalBytes != null
+                                    ? loadingProgress.cumulativeBytesLoaded / loadingProgress.expectedTotalBytes!
+                                    : null,
+                                color: Colors.purple[700],
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
-                  color: Colors.blue,
                 ),
-              ),
-              Container(
-                padding: EdgeInsets.only(left: 10, right: 10, bottom: 10),
-                child: Card(
-                  child: Image.network(
-                    hits[index]['webformatURL'],
-                    fit: BoxFit.fitWidth,
-                  ),
-                ),
-              ),
-            ],
-          );
-        },
+              ],
+            );
+          },
+        ),
       ),
     );
   }
